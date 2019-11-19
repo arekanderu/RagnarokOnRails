@@ -7,6 +7,14 @@ ActiveAdmin.register Product do
   #
   permit_params :name, :category_id, :number_in_stock, :attack, :magic_attack, :description, :price
 
+  form do |f|
+    f.semantic_errors
+    f.inputs
+    f.inputs do
+      f.input :image, as: :file
+    end
+    f.actions
+  end
   # or
   #
   # permit_params do
