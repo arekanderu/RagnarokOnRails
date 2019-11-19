@@ -1,2 +1,23 @@
-<h1>Products#index</h1>
-<p>Find me in app/views/products/index.html.erb</p>
+<h1>Ragnarok: Exchange</h1>
+
+<h4>What's new?</h4>
+  <%= form_tag products_path, :method => 'get'%>
+  <%= label_tag 'New' %>
+  <%= radio_button_tag :option, "New" %>
+
+  <%= label_tag 'Updated' %>
+  <%= radio_button_tag :option, "Updated" %>
+
+  <br />
+
+  <%= submit_tag "Filter" %>
+
+  <br />
+
+  <% @products.each do |product| %>
+  <ul>
+    <li><%=link_to(product.name, product)%></li>
+    <li><%=image_tag(url_for(product.image), alt:"product_image")%></li>
+    <li>CAN $<%= number_with_precision(product.price, :precision => 2, :delimiter => ',') %>
+  </ul>
+<% end %>

@@ -1,2 +1,25 @@
-<h1>Products#show</h1>
-<p>Find me in app/views/products/show.html.erb</p>
+<h1>Ragnarok: Exchange</h1>
+  <ul>
+    <li><%= @product.name%></li>
+    <li><%=image_tag(url_for(@product.image), alt:"product_image") %></li>
+
+    <li>
+      Price: CDN$ <%= number_with_precision(@product.price, :precision => 2, :delimiter => ',')%>
+    </li>
+
+    <li>
+      Category: <%= link_to(@product.category.name, @product.category )%>
+    </li>
+
+    <li>
+      Attack: <%= @product.attack %>
+    </li>
+
+    <li>
+      Description: <%= @product.description %>
+    </li>
+
+    <li>
+      Number in stock <%= @product.number_in_stock %>
+    </li>
+  </ul>
