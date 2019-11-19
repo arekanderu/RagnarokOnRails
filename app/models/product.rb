@@ -3,6 +3,6 @@ class Product < ApplicationRecord
   has_many :order_details
   has_many :orders, through: :order_details
 
-  validates :category, :name, :number_in_stock, :attack, :price, presence: true
-  validates :number_in_stock, :attack, numericality: { only_integer: true }
+  validates :category, :name, :number_in_stock, :price, presence: true
+  validates :number_in_stock, :attack, :magic_attack, numericality: { only_integer: true }
 end
