@@ -10,11 +10,11 @@ class Product < ApplicationRecord
 
   has_one_attached :image
 
-  def self.search(search)
-    where('category_id LIKE ?', "%#{search}")
-  end
+  # def self.search(search)
+  #   where('category_id LIKE ?', "%#{search}")
+  # end
 
-  def new
-    where('product_id')
-  end
+  # def new
+  #   where('product_id')
+  # end
 end

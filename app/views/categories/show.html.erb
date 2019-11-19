@@ -3,7 +3,7 @@
   <ul>
     <li>
        <%= image_tag(url_for(product.image), alt:"product_image") %>
-      <%= product.name %>
+      <%= link_to product.name, product %>
     </li>
   </ul>
 <% end %>
