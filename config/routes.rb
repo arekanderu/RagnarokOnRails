@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'orders/show'
   get 'order_details/cart'
   resources :categories, only: %i[index show]
   resources :products, only: %i[index show] do
@@ -8,6 +7,7 @@ Rails.application.routes.draw do
       get 'search_results'
     end
   end
+  resources :orders, only: %i[index show]
 
   root 'products#index'
 

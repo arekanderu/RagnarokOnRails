@@ -1,2 +1,6 @@
-<h1>Orders#show</h1>
-<p>Find me in app/views/orders/show.html.erb</p>
+<h3><%= @order.order_number %></h3>
+<li><%=@order.customer.name %></li>
+<li><%=@order.quantity %></li>
+<li><%=@order.sub_total %></li>
+<li><%=@order.tax_rate %></li>
+<li><%=@order.total_price %></li>

@@ -5,6 +5,10 @@
     <li>CAN $<%= number_with_precision(product.price, :precision => 2, :delimiter => ',') %>
   </ul>
 <% end %>
+<%= form_for @order_item do |f| %>
+  <%= f.submit "Add to cart"%>
+
+<% end %>
 
   <% url = request.path_info %>
   <% if url.include?('search_results') %>

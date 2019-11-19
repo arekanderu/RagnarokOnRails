@@ -1,0 +1,11 @@
+  <% @orders.each do |order| %>
+  <ul>
+    <li><%=link_to(order.order_number, order)%></li>
+    <li><%=order.customer.name %></li>
+    <li><%=order.quantity %></li>
+    <li><%=order.sub_total %></li>
+    <li><%=order.tax_rate %></li>
+    <li><%=order.total_price %></li>
+  </ul>
+<% end %>
+

@@ -14,6 +14,8 @@ class ProductsController < ApplicationController
       end
 
     @paginate_results = @products.paginate(page: params[:page], per_page: 5)
+
+    @order_item = cart.order_items.new
   end
 
   def show
