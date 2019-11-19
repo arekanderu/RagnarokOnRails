@@ -10,6 +10,32 @@
   </head>
 
   <body>
+  <h1>Ragnarok: Exchange</h1>
+
+<h4>What's new?</h4>
+  <%= form_tag products_path, :method => 'get'%>
+  <%= label_tag 'New' %>
+  <%= radio_button_tag :option, "New" %>
+
+  <%= label_tag 'Updated' %>
+  <%= radio_button_tag :option, "Updated" %>
+
+  <br />
+
+  <%= submit_tag "Filter" %>
+
+  <br />
+
+  <%= form_with(url: search_results_products_path, method: "get" ) do %>
+    <%= label_tag(:query, "Search for:")%>
+    <%= text_field_tag(:query) %>
+    <%= submit_tag("Search") %>
+  <% end %>
+
     <%= yield %>
+
+  <%= will_paginate @search_results %>
+
+  <br />
   </body>
 </html>

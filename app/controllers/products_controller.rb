@@ -15,12 +15,14 @@ class ProductsController < ApplicationController
       Product.all
     end
 
-    @search = params['search']
-    if @search.present?
-      @name = @search['name']
-      @products = Product.where('name LIKE ?', "%#{@name}%")
-    end
+    # @search = params['search']
+    # if @search.present?
+    #   @name = @search['name']
+    #   @products = Product.where('name LIKE ?', "%#{@name}%")
+    # end
     @search_results = @products.paginate(page: params[:page], per_page: 5)
+
+    @query = params[:query]
   end
 
   def show

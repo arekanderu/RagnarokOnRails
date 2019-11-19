@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
 
   resources :categories, only: %i[index show]
-  resources :products, only: %i[index show]
+  resources :products, only: %i[index show] do
+    collection do
+      get 'search_results'
+    end
+  end
 
   root 'products#index'
 
