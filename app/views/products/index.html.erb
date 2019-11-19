@@ -1,4 +1,4 @@
-  <% @search_results.each do |product| %>
+  <% @paginate_results.each do |product| %>
   <ul>
     <li><%=link_to(product.name, product)%></li>
     <li><%=image_tag(url_for(product.image), alt:"product_image")%></li>
@@ -6,4 +6,3 @@
   </ul>
 <% end %>
 
-<%= will_paginate @search_results %>

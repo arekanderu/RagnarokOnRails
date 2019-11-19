@@ -13,7 +13,7 @@
   <h1>Ragnarok: Exchange</h1>
 
 <h4>What's new?</h4>
-  <%= form_tag products_path, :method => 'get'%>
+  <%= form_tag products_path, :method => 'get' do%>
   <%= label_tag 'New' %>
   <%= radio_button_tag :option, "New" %>
 
@@ -23,18 +23,22 @@
   <br />
 
   <%= submit_tag "Filter" %>
+<% end %>
 
-  <br />
-
-  <%= form_with(url: search_results_products_path, method: "get", local: true ) do %>
-    <%= label_tag(:query, "Search for:")%>
-    <%= text_field_tag(:query) %>
-    <%= submit_tag("Search") %>
-  <% end %>
+<%= form_tag(search_results_products_path, method: "get", local: true) do %>
+<%= label_tag(:query, "Search for:") %>
+<%= text_field_tag(:query) %>
+<%= collection_select :product, :category_id, Category.all, :id, :name, prompt: true %>
+<%= submit_tag("Search") %>
+<% end %>
 
     <%= yield %>
 
-  <%= will_paginate @search_results %>
+  <% url = request.path_info %>
+  <% if url.include?('search_results') %>
+  <%else %>
+    <%= will_paginate @paginate_results %>
+  <% end %>
 
   <br />
   </body>

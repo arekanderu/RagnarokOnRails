@@ -1,3 +1,13 @@
+<br />
 <p>
   Your search for '<%= @query %>' returned <%= pluralize(@products.size, 'result') %>.
 </p>
+
+  <% @products.each do |product| %>
+  <ul>
+    <li><%=link_to(product.name, product)%></li>
+    <li><%=image_tag(url_for(product.image), alt:"product_image")%></li>
+    <li>CAN $<%= number_with_precision(product.price, :precision => 2, :delimiter => ',') %>
+  </ul>
+<% end %>
+
