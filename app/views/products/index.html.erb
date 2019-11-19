@@ -1,9 +1,7 @@
 <h1>Ragnarok: Exchange</h1>
 
-<%= form_tag products_path, :method => 'get' do %>
-<%= collection_select :product, :category_id, Category.all, :id, :name, prompt: true %>
-<%= submit_tag "Filter" %>
- <% end %>
+
+
 
 <h4>What's new?</h4>
   <%= form_tag products_path, :method => 'get'%>
