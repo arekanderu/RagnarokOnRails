@@ -22,13 +22,15 @@ class ProductsController < ApplicationController
     # end
     @search_results = @products.paginate(page: params[:page], per_page: 5)
 
-    @query = params[:query]
+
   end
 
   def show
     @product = Product.find(params[:id])
   end
 
-  def search_results;
+  def search_results
+    @query = params[:query]
+    Product.where('name LIKE ?', "%#{@query}%")
   end
 end
