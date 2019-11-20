@@ -1,15 +1,15 @@
 class OrdersController < ApplicationController
-  def index
-    @orders = Order.all
+  # def index;
+  #   @orders = Order.all
 
-    if session[:order_id]
-      Order.find(session: order_id)
-    else
-      Order.new
-    end
-  end
+  #   if session[:order_id]
+  #     Order.find(session: order_id)
+  #   else
+  #     Order.new
+  #   end
+  # end
 
-  def show
-    @order = Order.find(params[:id])
-  end
+  # def show
+  #   @order = Order.find(params[:id])
+  # end
 end

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :pages
   get 'order_details/cart'
   resources :categories, only: %i[index show]
   resources :products, only: %i[index show] do

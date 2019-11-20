@@ -12,18 +12,18 @@
   <body>
   <h1>Ragnarok: Exchange</h1>
 
-<h4>What's new?</h4>
-  <%= form_tag products_path, :method => 'get' do%>
-  <%= label_tag 'New' %>
-  <%= radio_button_tag :option, "New" %>
+  <h4>What's hot?</h4>
+    <%= form_tag products_path, :method => 'get' do%>
+    <%= label_tag 'New' %>
+    <%= radio_button_tag :option, "New" %>
 
-  <%= label_tag 'Updated' %>
-  <%= radio_button_tag :option, "Updated" %>
+    <%= label_tag 'Updated' %>
+    <%= radio_button_tag :option, "Updated" %>
 
-  <br />
+    <br />
 
-  <%= submit_tag "Filter" %>
-<% end %>
+    <%= submit_tag "Filter" %>
+    <% end %>
 
 <%= form_tag(search_results_products_path, method: "get", local: true) do %>
 <%= label_tag(:query, "Search for:") %>
