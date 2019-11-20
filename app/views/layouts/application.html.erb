@@ -7,6 +7,16 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+      <!-- Navigation -->
+      <nav>
+        <ul>
+          <li><%= link_to('Home', '/products' ) %></li>
+          <li><%= link_to('About',permalink_path(permalink: 'about_us')) %></li>
+          <li><%= link_to('FAQs',permalink_path(permalink: 'faq')) %></li>
+        </ul>
+      </nav>
+    </header>
   </head>
 
   <body>
