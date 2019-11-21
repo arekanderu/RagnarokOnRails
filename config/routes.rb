@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   get '/static/:permalink', to: 'pages#permalink', as: 'permalink'
 
-  resources :categories, only: %i[index show]
+  resources :categories, only: [:show]
   resources :products, only: %i[index show] do
     collection do
       get 'search_results'
