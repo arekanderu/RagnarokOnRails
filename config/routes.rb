@@ -10,8 +10,8 @@ Rails.application.routes.draw do
     end
   end
   resources :orders, only: %i[index show]
-  resources :order_details: only: %i[index show]
-  post 'products/add_to_cart/:id', to: 'products#add_to_cart'
+  resources :order_details, only: %i[index show]
+  post 'products/add_to_cart/:id', to: 'products#add_to_cart', as: products_add_to_cart
 
   root 'products#index'
 
