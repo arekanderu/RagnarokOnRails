@@ -28,16 +28,23 @@
   <details>
     <summary>Shopping Cart: <%=@cart.count%></summary>
     <ul>
+      <% count = 0%>
       <% @cart.each do |product| %>
         <li>
           <%= product.name %>
-          <%= link_to 'Delete', remove_from_cart_path(product), method: :delete %>
+          <% quantity = session[:quantity][count]%>
+          Quantity:
+          <%= text_field_tag('', quantity) %>
+          <%= link_to '- Delete', remove_from_cart_path(product, quantity), method: :delete %>
+          <%= link_to ', Update', edit_cart_path(product, quantity), method: :put %>
         </li>
+      <% count += 1%>
       <% end %>
     </ul>
-     <%= debug session[:cart] %>
   </details>
   <% end %>
+
+
 
   <h4>What's hot?</h4>
     <%= form_tag products_path, :method => 'get' do%>
@@ -59,6 +66,8 @@
 <%= submit_tag("Search") %>
 <%= link_to '<button type="button" class="btn btn-sm">Reset</button>'.html_safe, root_path %>
 <% end %>
+
+
     <%= yield %>
 
 

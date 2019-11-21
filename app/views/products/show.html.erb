@@ -26,11 +26,14 @@
 
       <% if @cart.include?(@product)%>
         <br />
-        <%= button_to 'remove from cart', remove_from_cart_path(@product.id), method: :delete %>
+        <%= button_to 'remove from cart', remove_from_cart_path(@product.id, :query), method: :delete %>
       <% else %>
         <br />
+        <%= form_tag(add_to_cart_path(@product.id, :query), method: "post", local: true) do %>
         <%= label_tag(:query, "Quantity:") %>
         <%= text_field_tag(:query) %>
-        <li><%= link_to 'Add to cart', add_to_cart_path(@product.id , :query), method: :post %></li>
+        <br />
+        <%= submit_tag("Search") %>
+        <% end %>
       <% end %>
   </ul>
