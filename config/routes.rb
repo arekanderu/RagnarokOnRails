@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   end
   resources :orders, only: %i[index show]
   resources :order_details, only: %i[index show]
-  post 'products/add_to_cart/:id', to: 'products#add_to_cart', as: 'add_to_cart'
+  post 'products/add_to_cart/:id, :quantity', to: 'products#add_to_cart', as: 'add_to_cart'
   delete 'products/remove_from_card/:id', to: 'products#remove_from_cart', as: 'remove_from_cart'
 
   root 'products#index'

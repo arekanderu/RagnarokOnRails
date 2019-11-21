@@ -10,5 +10,4 @@ class ApplicationController < ActionController::Base
     when :alert then 'alert alert-error'
     end
   end
-
 end

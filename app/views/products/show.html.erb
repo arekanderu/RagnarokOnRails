@@ -21,12 +21,16 @@
     </li>
 
     <li>
-      Number in stock <%= @product.number_in_stock %>
+      Number in stock: <%= @product.number_in_stock %>
     </li>
 
       <% if @cart.include?(@product)%>
-        <li>Product is in your cart.</li>
+        <br />
+        <%= button_to 'remove from cart', remove_from_cart_path(@product.id), method: :delete %>
       <% else %>
-       <li><%= link_to 'Add to cart', add_to_cart_path(@product.id), method: :post %></li>
+        <br />
+        <%= label_tag(:query, "Quantity:") %>
+        <%= text_field_tag(:query) %>
+        <li><%= link_to 'Add to cart', add_to_cart_path(@product.id , :query), method: :post %></li>
       <% end %>
   </ul>
