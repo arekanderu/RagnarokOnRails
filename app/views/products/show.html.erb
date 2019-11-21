@@ -1,3 +1,5 @@
+<br />
+<br />
 <ul>
     <li><%= @product.name%></li>
     <li><%=image_tag(url_for(@product.image), alt:"product_image") %></li>
@@ -21,4 +23,10 @@
     <li>
       Number in stock <%= @product.number_in_stock %>
     </li>
+
+      <% if @cart.include?(@product)%>
+        <li>Product is in your cart.</li>
+      <% else %>
+       <li><%= link_to 'Add to cart', add_to_cart_path(@product.id), method: :post %></li>
+      <% end %>
   </ul>

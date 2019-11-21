@@ -1,9 +1,10 @@
-  <% @paginate_results.each do |product| %>
   <ul>
-    <li><%=link_to(product.name, product)%></li>
-    <li><%=image_tag(url_for(product.image), alt:"product_image")%></li>
-    <li>CAN $<%= number_with_precision(product.price, :precision => 2, :delimiter => ',') %>  </ul>
-    <li><%= link_to 'Add to cart', add_to_cart %></li>
+  <% @paginate_results.each do |product| %>
+    <li>
+      <%=image_tag(url_for(product.image), alt:"product_image")%>
+      <%=link_to(product.name, product)%>
+      CAN $<%= number_with_precision(product.price, :precision => 2, :delimiter => ',') %>
+    </li>
   <% end %>
   </ul>
 <%= will_paginate @paginate_results %>

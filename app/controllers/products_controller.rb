@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class ProductsController < ApplicationController
+  before_action :initialize_session
+  before_action :load_cart
+
   def index
     @products =
       if params[:option] == 'New'
@@ -14,8 +17,6 @@ class ProductsController < ApplicationController
       end
 
     @paginate_results = @products.paginate(page: params[:page], per_page: 5)
-
-
   end
 
   def show
@@ -38,5 +39,21 @@ class ProductsController < ApplicationController
       @category = params[:product][:category_id]
       @products = Product.where('category_id=? and lower(name) LIKE ? ', @category.to_s, "%#{@query}%")
     end
+  end
+
+  def add_to_cart
+    id = params[:id].to_i
+
+    session[:cart] << id unless session[:cart].include?(id)
+    redirect_to root_path
+  end
+
+  def load_cart
+    @cart = Product.find(session[:cart])
+  end
+
+  private
+  def initialize_session
+    session[:cart] ||= []
   end
 end

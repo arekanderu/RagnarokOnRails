@@ -9,12 +9,4 @@ class Product < ApplicationRecord
   validates :number_in_stock, :attack, :magic_attack, numericality: { only_integer: true }
 
   has_one_attached :image
-
-  # def self.search(search)
-  #   where('category_id LIKE ?', "%#{search}")
-  # end
-
-  # def new
-  #   where('product_id')
-  # end
 end

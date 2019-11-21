@@ -22,6 +22,15 @@
   <body>
   <h1>Ragnarok: Exchange</h1>
 
+  <details>
+    <summary>Shopping Cart: <%=@cart.count%></summary>
+    <ul>
+      <% @cart.each do |product| %>
+        <li><%= product.name %></li>
+      <% end %>
+    </ul>
+  </details>
+
   <h4>What's hot?</h4>
     <%= form_tag products_path, :method => 'get' do%>
     <%= label_tag 'New' %>
