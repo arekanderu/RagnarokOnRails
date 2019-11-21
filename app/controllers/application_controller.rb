@@ -1,12 +1,4 @@
-class ApplicationController < ActionController::Base
-protect_from_forgery with: :exception
-helper_method :current_order
+# frozen_string_literal: true
 
-def current_order
-  if session[:order_number]
-    Order.find(session[:order_id])
-  else
-    Order.new
-  end
-end
+class ApplicationController < ActionController::Base
 end

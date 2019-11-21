@@ -2,12 +2,8 @@
   <ul>
     <li><%=link_to(product.name, product)%></li>
     <li><%=image_tag(url_for(product.image), alt:"product_image")%></li>
-    <li>CAN $<%= number_with_precision(product.price, :precision => 2, :delimiter => ',') %>
-  </ul>
-<% end %>
-
-  <% url = request.path_info %>
-  <% if url.include?('search_results') %>
-  <%else %>
-    <%= will_paginate @paginate_results %>
+    <li>CAN $<%= number_with_precision(product.price, :precision => 2, :delimiter => ',') %>  </ul>
+    <li><%= link_to 'Add to cart', '#' %></li>
   <% end %>
+  </ul>
+<%= will_paginate @paginate_results %>

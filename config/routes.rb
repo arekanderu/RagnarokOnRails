@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
-
   resources :pages
 
-  get 'order_details/cart'
   get '/static/:permalink', to: 'pages#permalink', as: 'permalink'
 
   resources :categories, only: %i[index show]
@@ -12,6 +10,8 @@ Rails.application.routes.draw do
     end
   end
   resources :orders, only: %i[index show]
+  resources :order_details: only: %i[index show]
+  post 'products/add_to_cart/:id', to: 'products#add_to_cart'
 
   root 'products#index'
 
