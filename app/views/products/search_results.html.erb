@@ -1,11 +1,18 @@
 <br />
-<p>You search for '<%= @query %>' returned <%= pluralize(@products.size, 'result') %>.</p>
+<%if @products.present? %>
+  <p>You search for '<%= @query %>' returned <%= pluralize(@products.size, 'result') %>.</p>
+    <% @products.each do |product| %>
+    <ul>
+      <li><%=link_to(product.name, product)%></li>
+      <li><%=image_tag(url_for(product.image), alt:"product_image")%></li>
+      <li>CAN $<%= number_with_precision(product.price, :precision => 2, :delimiter => ',') %>
+    </ul>
+  <% end %>
 
-  <% @products.each do |product| %>
-  <ul>
-    <li><%=link_to(product.name, product)%></li>
-    <li><%=image_tag(url_for(product.image), alt:"product_image")%></li>
-    <li>CAN $<%= number_with_precision(product.price, :precision => 2, :delimiter => ',') %>
-  </ul>
+<% else %>
+<br />
+<% flash.each do |name, message| %>
+  <%= content_tag :div, message, class: name %>
 <% end %>
 
+<% end %>

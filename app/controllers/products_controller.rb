@@ -24,21 +24,29 @@ class ProductsController < ApplicationController
   end
 
   def search_results
-    if params[:query].present?
-      @query = params[:query]
-      @products = Product.where('name LIKE ?', "%#{@query}%")
-    end
-
-    if params[:product][:category_id].present?
-      @category = params[:product][:category_id]
-      @products = Product.where('category_id=? ', @category.to_s)
-    end
+    flash[:notice] = ''
 
     if params[:product][:category_id].present? && params[:query].present?
-      @query = params[:query].downcase
+      flash[:notice] = 'No search result.'
+      @query = params[:query]
       @category = params[:product][:category_id]
       @products = Product.where('category_id=? and lower(name) LIKE ? ', @category.to_s, "%#{@query}%")
+
+    elsif params[:query].present?
+      @query = params[:query]
+      @products = Product.where('name LIKE ?', "%#{@query}%")
+
+    elsif params[:product][:category_id].present?
+      @category = params[:product][:category_id]
+      @products = Product.where('category_id=? ', @category.to_s)
+
+    else
+      flash[:notice] = 'No search result.'
     end
+
+
+
+
   end
 
   def add_to_cart
