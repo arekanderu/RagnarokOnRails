@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :users
+  devise_for :customers
   resources :pages
 
   get '/static/:permalink', to: 'pages#permalink', as: 'permalink'

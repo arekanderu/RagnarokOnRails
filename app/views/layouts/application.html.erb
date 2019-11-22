@@ -19,16 +19,18 @@
     </header>
   </head>
 
+  <%=link_to 'Sign up', new_customer_registration_path %>
+
   <body>
   <h1>Ragnarok: Exchange</h1>
 
   <% url = request.path_info %>
-  <% if url.include?('about_us') || url.include?('faq') %>
+  <% if url.include?('about_us') || url.include?('faq') || url.include?('customers') %>
   <%else %>
   <details>
     <summary>Shopping Cart: <%=@cart.count%></summary>
     <ul>
-      <% count = 0%>
+      <% count = 0 %>
       <% @cart.each do |product| %>
         <li>
           <%= product.name %>
@@ -36,15 +38,13 @@
           Quantity:
           <%= text_field_tag('', quantity) %>
           <%= link_to '- Delete', remove_from_cart_path(product, quantity), method: :delete %>
-          <%= link_to ', Update', edit_cart_path(product, quantity), method: :put %>
+          <%= link_to ', Update', edit_cart_path(:id => product, :quantity => quantity), method: :put %>
         </li>
       <% count += 1%>
       <% end %>
     </ul>
-  </details>
   <% end %>
-
-
+  </details>
 
   <h4>What's hot?</h4>
     <%= form_tag products_path, :method => 'get' do%>
@@ -67,6 +67,7 @@
 <%= link_to '<button type="button" class="btn btn-sm">Reset</button>'.html_safe, root_path %>
 <% end %>
 
+<%= render 'layouts/alerts' %>
 
     <%= yield %>
 

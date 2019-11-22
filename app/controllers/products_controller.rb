@@ -43,22 +43,23 @@ class ProductsController < ApplicationController
     else
       flash[:notice] = 'No search result.'
     end
-
-
-
-
   end
 
   def add_to_cart
     id = params[:id].to_i
     @query = params[:query].to_i
+    # id unless session[:cart].include?(id)
 
     session[:cart] << id unless session[:cart].include?(id)
+
+    # session[:cart] += { 'id' => id, 'quantity' => @query }
+
     session[:quantity] << @query
     redirect_to root_path
   end
 
   def load_cart
+    # @cart = Product.find(id => session[:cart]['id'])
     @cart = Product.find(session[:cart])
     @quantity = session[:quantity]
   end
@@ -76,8 +77,8 @@ class ProductsController < ApplicationController
     id = params[:id].to_i
     quantity = params[:quantity].to_i
 
-    # session[:quantity] << "#{id&quantity}"
-
+    # session[:quantity].update => quantity)
+    redirect_to root_path
   end
 
   private
