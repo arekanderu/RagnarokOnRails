@@ -19,13 +19,19 @@
     </header>
   </head>
 
-  <%=link_to 'Sign up', new_customer_registration_path %>
-
+  <% if current_user %>
+  <%=link_to 'Sign out', destroy_user_session_path, method: :delete %>
+  <% else %>
+  <%=link_to 'Sign up', new_user_registration_path %> |
+  <%=link_to 'Sign in', new_user_session_path %>
+  <% end %>
+  <br />
+  <%= render 'layouts/alerts' %>
   <body>
   <h1>Ragnarok: Exchange</h1>
 
   <% url = request.path_info %>
-  <% if url.include?('about_us') || url.include?('faq') || url.include?('customers') %>
+  <% if url.include?('about_us') || url.include?('faq') || url.include?('users') %>
   <%else %>
   <details>
     <summary>Shopping Cart: <%=@cart.count%></summary>
@@ -66,9 +72,6 @@
 <%= submit_tag("Search") %>
 <%= link_to '<button type="button" class="btn btn-sm">Reset</button>'.html_safe, root_path %>
 <% end %>
-
-<%= render 'layouts/alerts' %>
-
     <%= yield %>
 
 
