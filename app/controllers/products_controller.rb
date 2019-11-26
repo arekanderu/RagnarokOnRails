@@ -48,20 +48,17 @@ class ProductsController < ApplicationController
   def add_to_cart
     id = params[:id].to_i
     @query = params[:query].to_i
-    # id unless session[:cart].include?(id)
 
-    session[:cart] << id unless session[:cart].include?(id)
-
-    # session[:cart] += { 'id' => id, 'quantity' => @query }
-
-    session[:quantity] << @query
+    product_id = session[:cart] << id unless session[:cart].include?(id)
+    session[:testing] << { id => @query } unless session[:testing].include?(id)
+    @testing = session[:testing]
+    @testing2 = session[:cart]
     redirect_to root_path
   end
 
   def load_cart
-    # @cart = Product.find(id => session[:cart]['id'])
     @cart = Product.find(session[:cart])
-    @quantity = session[:quantity]
+    # @shopping_cart = Product.where(id: session[:testing][id])
   end
 
   def remove_from_cart
@@ -75,15 +72,17 @@ class ProductsController < ApplicationController
 
   def edit_the_cart
     id = params[:id].to_i
-    quantity = params[:quantity].to_i
+    # quantity = params[:quantity].to_i
 
     # session[:quantity].update => quantity)
     redirect_to root_path
   end
 
   private
+
   def initialize_session
-    session[:cart] ||=[]
-    session[:quantity] ||=[]
+    session[:cart] ||= []
+    session[:quantity] ||= []
+    session[:testing] ||= []
   end
 end

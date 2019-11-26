@@ -25,13 +25,13 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
-# Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.4.2', require: false
-
 gem 'activeadmin'
 gem 'devise'
 gem 'will_paginate', '~> 3.1.0'
-gem 'simple_form'
+gem 'react-rails'
+gem 'activesupport'
+gem 'bootsnap', require: false
+gem "bulma-rails", "~> 0.8.0"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

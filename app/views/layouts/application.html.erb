@@ -7,74 +7,126 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "style" %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
       <!-- Navigation -->
-      <nav>
-        <ul>
-          <li><%= link_to('Home', '/products' ) %></li>
-          <li><%= link_to('About',permalink_path(permalink: 'about_us')) %></li>
-          <li><%= link_to('FAQs',permalink_path(permalink: 'faq')) %></li>
-        </ul>
+      <nav class="navbar is-danger" role="navigation" aria-label="main navigation">
+          <div class="navbar-brand">
+            <h1 class="navbar-item">
+              Ragnarok: Exchange
+            </h1>
+
+          <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true">ola</span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+          </div>
+
+          <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item">
+                  <%= link_to('Home', '/products', class:'' )%>
+                </a>
+
+                <a class="navbar-item">
+                  <%= link_to('About', permalink_path(permalink: 'about_us'))%>
+                </a>
+
+                <a class="navbar-item">
+                  <%= link_to('FAQs', permalink_path(permalink: 'faq')) %>
+                </a>
+
+                  <div class="navbar-end">
+                    <div class="navbar-item">
+                      <div class="buttons">
+
+                      <a class="button is-primary">
+                        <strong>Sign up</strong>
+                      </a>
+                      <a class="button is-light">
+                        Log in
+                      </a>
+                      </div>
+                    </div>
+
+            </div>
+          </div>
       </nav>
+
+      <div class="search_bar">
+      <%= form_tag(search_results_products_path, method: "get", local: true, class: "") do %>
+      <%= text_field_tag(:query, nil, input_html: { value: "", class:"form-control mr-sm-2", type: "search", placeholder: 'Search'}) %>
+      <%= collection_select :product, :category_id, Category.all, :id, :name, prompt: true, class: "" %>
+      <%= submit_tag("Search",  class: "") %>
+      <% end %>
+      </div>
+
+      <br />
+      <br />
     </header>
   </head>
-
   <% if current_user %>
   <%=link_to 'Sign out', destroy_user_session_path, method: :delete %>
   <% else %>
-  <%=link_to 'Sign up', new_user_registration_path %> |
-  <%=link_to 'Sign in', new_user_session_path %>
+    <%=link_to 'Sign up', new_user_registration_path %> |
+    <%=link_to 'Sign in', new_user_session_path %>
   <% end %>
+  </div>
   <br />
   <%= render 'layouts/alerts' %>
   <body>
-  <h1>Ragnarok: Exchange</h1>
-
   <% url = request.path_info %>
   <% if url.include?('about_us') || url.include?('faq') || url.include?('users') %>
   <%else %>
-  <details>
+  <div class="float-right">
+  <details >
+
     <summary>Shopping Cart: <%=@cart.count%></summary>
     <ul>
+    <%=debug session[:testing][0]  %>
       <% count = 0 %>
       <% @cart.each do |product| %>
         <li>
-          <%= product.name %>
-          <% quantity = session[:quantity][count]%>
-          Quantity:
-          <%= text_field_tag('', quantity) %>
-          <%= link_to '- Delete', remove_from_cart_path(product, quantity), method: :delete %>
-          <%= link_to ', Update', edit_cart_path(:id => product, :quantity => quantity), method: :put %>
-        </li>
+          <%= product.id %>
+                  </li>
       <% count += 1%>
       <% end %>
     </ul>
   <% end %>
   </details>
+  </div>
 
-  <h4>What's hot?</h4>
-    <%= form_tag products_path, :method => 'get' do%>
-    <%= label_tag 'New' %>
-    <%= radio_button_tag :option, "New" %>
-
-    <%= label_tag 'Updated' %>
-    <%= radio_button_tag :option, "Updated" %>
-
-    <br />
-
-    <%= submit_tag "Filter" %>
+  <h4 class="nav flex-column">What's hot?</h4>
+    <div class="custom-control custom-radio custom-control-inline">
+      <%= form_tag products_path, :method => 'get' do%>
+      <%= radio_button_tag :option, "New"%>
+      <%= label_tag 'New'%>
+      <br />
+      <%= radio_button_tag :option, "Updated" %>
+      <%= label_tag 'Updated'%>
+      <br />
+      <%= submit_tag "Filter", class:"btn btn-primary"%>
     <% end %>
+    </div>
 
-<%= form_tag(search_results_products_path, method: "get", local: true) do %>
-<%= label_tag(:query, "Search for:") %>
-<%= text_field_tag(:query) %>
-<%= collection_select :product, :category_id, Category.all, :id, :name, prompt: true %>
-<%= submit_tag("Search") %>
-<%= link_to '<button type="button" class="btn btn-sm">Reset</button>'.html_safe, root_path %>
-<% end %>
     <%= yield %>
-
-
+    <%# javascript_pack_tag 'hello_react'%>
+    <%# javascript_pack_tag 'index', {prerender: true}%>
+    <%= react_component("Index")%>
   <br />
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js%22%3E"> </script>
+    <script type="text/javascript">
+      (function() {
+        var burger = document.querySelector('.burger');
+        var nav = document.querySelector('#'+burger.dataset.target);
+        burger.addEventListener('click', function(){
+          burger.classList.toggle('is-active');
+          nav.classList.toggle('is-active');
+        });
+      })();
+    </script>
   </body>
+
 </html>

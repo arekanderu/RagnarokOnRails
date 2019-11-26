@@ -1,0 +1,45 @@
+.link_style li{
+  text-decoration: none;
+}
+
+
+.search_bar input[type=text] {
+  margin-left: 15px;
+  width: 65%;
+  position: relative;
+}
+
+.search_bar select{
+  width: 15%;
+  position: relative;
+  margin-left: 1px;
+  height: 38px;
+}
+
+.button{
+  margin-top: 10px;
+  position: absolute;
+}
+
+body{
+}
+
+/* unvisited link */
+a:link {
+  color: rgb(177, 70, 70);
+}
+
+/* visited link */
+a:visited {
+  color: rgb(177, 70, 70);
+}
+
+/* mouse over link */
+a:hover {
+  color: rgb(177, 70, 70);
+}
+
+/* selected link */
+a:active {
+  color: rgb(177, 70, 70);
+}

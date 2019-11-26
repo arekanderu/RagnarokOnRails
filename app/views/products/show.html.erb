@@ -24,7 +24,7 @@
       Number in stock: <%= @product.number_in_stock %>
     </li>
 
-      <% if @cart.include?(@product)%>
+   <% if @cart.include?(@product)%>
         <br />
         <%= button_to 'remove from cart', remove_from_cart_path(@product.id, :query), method: :delete %>
       <% else %>
