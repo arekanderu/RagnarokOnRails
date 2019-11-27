@@ -1,11 +1,27 @@
+<nav class="breadcrumb is-right" aria-label="breadcrumbs">
+  <ul>
+    <li><%=link_to "Products", products_path %></li>
+    <li class="is-active">Search Results</li>
+  </ul>
+</nav>
+
 <%if @products.present? %>
   <p>You search for '<%= @query %>' returned <%= pluralize(@products.size, 'result') %>.</p>
+    <br />
     <% @products.each do |product| %>
-    <ul>
-      <li><%=link_to(product.name, product)%></li>
-      <li><%=image_tag(url_for(product.image), alt:"product_image")%></li>
-      <li>CAN $<%= number_with_precision(product.price, :precision => 2, :delimiter => ',') %>
-    </ul>
+      <div class="card">
+        <div class="search_images">
+          <div class="card-image">
+            <figure class="image is-48x48">
+              <%=image_tag(url_for(product.image), alt:"product_image")%>
+            </figure>
+          </div>
+        </div>
+        <div class="card-content">
+          <p class="title is-4"><%=link_to(product.name, product)%></p>
+          <h2 class="subtitle is-6">CAN $<%= number_with_precision(product.price, :precision => 2, :delimiter => ',') %></h2>
+        </div>
+      </div>
   <% end %>
 
 <% else %>

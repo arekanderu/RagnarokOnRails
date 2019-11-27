@@ -35,13 +35,13 @@ class ProductsController < ApplicationController
     elsif params[:query].present?
       @query = params[:query]
       @products = Product.where('name LIKE ?', "%#{@query}%")
-
-    elsif params[:product][:category_id].present?
-      @category = params[:product][:category_id]
-      @products = Product.where('category_id=? ', @category.to_s)
-
     else
       flash[:notice] = 'No search result.'
+    end
+
+    if params[:product][:category_id].present?
+      @category = params[:product][:category_id]
+      @products = Product.where('category_id=? ', @category.to_s)
     end
   end
 
@@ -55,7 +55,7 @@ class ProductsController < ApplicationController
   end
 
   def load_cart
-    @cart = Product.find(session[:cart].map { |hash| hash['id'] } )
+    @cart = Product.find(session[:cart].map { |hash| hash['id'] })
     @quantity = session[:cart].map { |hash| hash['quantity'] }
   end
 
