@@ -74,13 +74,17 @@
                   <% count = 0 %>
                   <% @cart.each do |product| %>
 
-                    <li>
-                      <%= product.name %>
                       <%=image_tag(url_for(product.image), alt:"product_image") %>
-                      Quantity: <%= @quantity[count] %>
-                      <i class="fas fa-minus is-small"></i>
-                      <i class="fas fa-plus"></i>
-                    </li>
+                      <%= product.name %>
+                      <%= link_to '-remove', remove_from_cart_path(product.id), method: :delete %>
+                      <%= form_tag(edit_cart_path(product.id, :query), method: "post", local: true) do %>
+                      <%= label_tag(:query, "Quantity:") %>
+                      <div class="quantity">
+                        <%= number_field_tag(:query, @quantity[count]) %>
+                      </div>
+                      <%= submit_tag("Update") %>
+                      <% end %>
+
                     <% count += 1%>
                   <% end %>
               </div>
@@ -89,8 +93,6 @@
         </div>
       </div>
       <% end %>
-
-
             <% if current_user %>
                 <%=link_to 'Sign out', destroy_user_session_path, method: :delete, class: "button is-link is-light" %>
 

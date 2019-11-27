@@ -1,0 +1,12 @@
+<% if @cart.include?(@product)%>
+  <br />
+  <%= button_to 'remove from cart', remove_from_cart_path(@product.id), method: :delete %>
+  <% else %>
+  <br />
+    <%= form_tag(add_to_cart_path(@product.id, :query), method: "post", local: true) do %>
+    <%= label_tag(:query, "Quantity:") %>
+    <%= text_field_tag(:query) %>
+    <br />
+    <%= submit_tag("Submit") %>
+    <% end %>
+<% end %>

@@ -67,3 +67,11 @@ a:active {
   height: 25px;
   margin-left: 10px;
 }
+
+.quantity{
+  margin-left: 27px;
+}
+
+.quantity input[type=number]{
+  width: 30px;
+}

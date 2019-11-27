@@ -33,7 +33,6 @@ class ProductsController < ApplicationController
       @products = Product.where('category_id=? and lower(name) LIKE ? ', @category.to_s, "%#{@query}%")
 
     elsif params[:query].present?
-      flash[:notice] = 'No search result.'
       @query = params[:query]
       @products = Product.where('name LIKE ?', "%#{@query}%")
 
@@ -62,17 +61,17 @@ class ProductsController < ApplicationController
 
   def remove_from_cart
     id = params[:id].to_i
-    @query = params[:query].to_i
 
     session[:cart].delete_if { |hash| hash['id'] == id }
-    #redirect_to root_path
+    redirect_back(fallback_location: root_path)
   end
 
   def edit_the_cart
     id = params[:id].to_i
-    # quantity = params[:quantity].to_i
+    @query = params[:query].to_i
 
-    # session[:quantity].update => quantity)
+    # session[:cart].update(session[:cart].map {|hash| hash['id'] => id, hash["quantity"] => @query })
+
     redirect_to root_path
   end
 
