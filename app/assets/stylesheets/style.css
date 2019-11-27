@@ -2,26 +2,28 @@
   text-decoration: none;
 }
 
-
-.search_bar input[type=text] {
-  margin-left: 15px;
-  width: 65%;
-  position: relative;
-}
-
 .search_bar select{
-  width: 15%;
-  position: relative;
+  width: 14.8%;
+  position: static;
   margin-left: 1px;
   height: 38px;
+  float: left;
 }
 
-.button{
-  margin-top: 10px;
-  position: absolute;
+.search_bar input[type=text] {
+  width: 80%;
+  position: relative;
+  float: left;
 }
 
-body{
+
+.search_bar input[type=submit]{
+  position: relative;
+  float: right;
+  margin-top: -41px;
+  margin-right: 1px;
+  width: 5%;
+  height: 40px;
 }
 
 /* unvisited link */
@@ -42,4 +44,8 @@ a:hover {
 /* selected link */
 a:active {
   color: rgb(177, 70, 70);
+}
+
+.shopping_cart details{
+  float: left;
 }
