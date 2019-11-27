@@ -75,3 +75,20 @@ a:active {
 .quantity input[type=number]{
   width: 30px;
 }
+
+.quantity_in_products input[type=number]{
+  width: 35px;
+  position: relative;
+}
+
+.products_images{
+  padding: 10px;
+}
+
+.product_images{
+  padding: 10px;
+}
+
+.category_images{
+  padding: 10px;
+}

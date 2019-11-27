@@ -1,26 +1,34 @@
-<ul>
-    <li><%= @product.name%></li>
-    <li><%=image_tag(url_for(@product.image), alt:"product_image") %></li>
+<div class="column ">
 
-    <li>
-      Price: CDN$ <%= number_with_precision(@product.price, :precision => 2, :delimiter => ',')%>
-    </li>
+    <div class="card">
+    <div class="product_images">
+      <div class="card-image">
+        <figure class="image is-48x48">
+            <%=image_tag(url_for(@product.image), alt:"product_image") %>
+        </figure>
+      </div>
+    </div>
 
-    <li>
-      Category: <%= link_to(@product.category.name, @product.category )%>
-    </li>
+      <p class="title is-4"><%= @product.name%></p>
+      <p class="subtitle is-6"><%= @product.description %></p>
+    <ul>
+      <div class="card-content">
+      <li>
+        Price: CDN$ <%= number_with_precision(@product.price, :precision => 2, :delimiter => ',')%>
+      </li>
 
-    <li>
-      Attack: <%= @product.attack %>
-    </li>
+      <li>
+        Category: <%= link_to(@product.category.name, @product.category )%>
+      </li>
 
-    <li>
-      Description: <%= @product.description %>
-    </li>
+      <li>
+        Attack: <%= @product.attack %>
+      </li>
 
-    <li>
-      Number in stock: <%= @product.number_in_stock %>
-    </li>
-     <%= render 'products/functionalities' %>
+      <li>
+        Number in stock: <%= @product.number_in_stock %>
+      </li>
+
+      <%= render 'products/functionalities' %>
   </ul>
 

@@ -1,9 +1,16 @@
-<h3><%= @category.name %></h3>
+<p class="title is-4"><%= @category.name %></p>
 <% @category.products.each do |product| %>
-  <ul>
-    <li>
-       <%= image_tag(url_for(product.image), alt:"product_image") %>
-      <%= link_to product.name, product %>
-    </li>
-  </ul>
+<div class="card">
+  <div class="category_images">
+    <div class="card-image">
+      <figure class="image is-48x48">
+        <%= image_tag(url_for(product.image), alt:"product_image") %>
+      </figure>
+    </div>
+  </div>
+  <div class="card-content">
+    <h2 class="subtitle is-6"><%= link_to product.name, product %></h2>
+
+  </div>
+</div>
 <% end %>

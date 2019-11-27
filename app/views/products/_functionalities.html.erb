@@ -5,8 +5,11 @@
   <br />
     <%= form_tag(add_to_cart_path(@product.id, :query), method: "post", local: true) do %>
     <%= label_tag(:query, "Quantity:") %>
-    <%= text_field_tag(:query) %>
-    <br />
-    <%= submit_tag("Submit") %>
+    <div class="quantity_in_products">
+      <%= number_field_tag(:query,"1") %>
+    </div>
+      <br />
+      <%= submit_tag("Submit", class:"button is-danger") %>
+
     <% end %>
 <% end %>

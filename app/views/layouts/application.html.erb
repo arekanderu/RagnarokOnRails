@@ -10,7 +10,6 @@
     <%= stylesheet_link_tag "style" %>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
       <!-- Navigation -->
       <nav class="navbar is-danger" role="navigation" aria-label="main navigation">
           <div class="navbar-brand">
@@ -50,57 +49,58 @@
       </div>
     </div>
 
+      <div class="navbar-end">
+        <div class="navbar-item">
 
-           <div class="navbar-end">
-      <div class="navbar-item">
-      <% url = request.path_info %>
-      <% if url.include?('about_us') || url.include?('faq') || url.include?('users') %>
+          <%= render 'layouts/alerts' %>
 
-      <%else %>
-      <div class="shopping_cart">
-        <div class="dropdown is-hoverable">
-          <div class="dropdown-trigger">
-            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
-              <span class="icon has-text-info"><i class="fas fa-shopping-cart"></i>&nbsp;<%=@cart.count%> </span>
-              <span class="icon is-small">
-                <i class="fas fa-angle-down" aria-hidden="true"></i>
-              </span>
-            </button>
-          </div>
-          <div class="dropdown-menu" id="dropdown-menu4" role="menu">
-            <div class="dropdown-content">
-              <div class="dropdown-item">
-                <p>There are <%= pluralize(@cart.count, 'item') %> in the cart.</p>
-                  <% count = 0 %>
-                  <% @cart.each do |product| %>
+            <% url = request.path_info %>
+            <% if url.include?('about_us') || url.include?('faq') || url.include?('users') || url.include?('categories')%>
 
-                      <%=image_tag(url_for(product.image), alt:"product_image") %>
-                      <%= product.name %>
-                      <%= link_to '-remove', remove_from_cart_path(product.id), method: :delete %>
-                      <%= form_tag(edit_cart_path(product.id, :query), method: "post", local: true) do %>
-                      <%= label_tag(:query, "Quantity:") %>
-                      <div class="quantity">
-                        <%= number_field_tag(:query, @quantity[count]) %>
-                      </div>
-                      <%= submit_tag("Update") %>
-                      <% end %>
+            <%else %>
+            <div class="shopping_cart">
+              <div class="dropdown is-hoverable">
+                <div class="dropdown-trigger">
+                  <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+                    <span class="icon has-text-info"><i class="fas fa-shopping-cart"></i>&nbsp;<%=@cart.count%> </span>
+                    <span class="icon is-small">
+                      <i class="fas fa-angle-down" aria-hidden="true"></i>
+                    </span>
+                  </button>
+                </div>
+                <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+                  <div class="dropdown-content">
+                    <div class="dropdown-item">
+                      <p>There are <%= pluralize(@cart.count, 'item') %> in the cart.</p>
+                        <% count = 0 %>
+                        <% @cart.each do |product| %>
 
-                    <% count += 1%>
-                  <% end %>
+                            <%=image_tag(url_for(product.image), alt:"product_image") %>
+                            <%= product.name %>
+                            <%= link_to '-remove', remove_from_cart_path(product.id), method: :delete %>
+                            <%= form_tag(edit_cart_path(product.id, :query), method: "post", local: true) do %>
+                            <%= label_tag(:query, "Quantity:") %>
+                            <div class="quantity">
+                              <%= number_field_tag(:query, @quantity[count]) %>
+                            </div>
+                            <%= submit_tag("Update") %>
+                            <% end %>
+
+                          <% count += 1%>
+                        <% end %>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <% end %>
+            <% end %>
             <% if current_user %>
                 <%=link_to 'Sign out', destroy_user_session_path, method: :delete, class: "button is-link is-light" %>
-
             <% else %>
 
-          <%=link_to 'Sign up', new_user_registration_path, class:"button is-primary is-light" %>&nbsp;
-          <%=link_to 'Sign in', new_user_session_path, class: "button is-link is-light" %>
-          <% end %>
+            <%=link_to 'Sign up', new_user_registration_path, class:"button is-primary is-light" %>&nbsp;
+            <%=link_to 'Sign in', new_user_session_path, class: "button is-link is-light" %>
+            <% end %>
               </div>
             </div>
           </div>
@@ -143,12 +143,21 @@
     </header>
   </head>
 
-  <%= render 'layouts/alerts' %>
+    <body>
+      <%= yield %>
 
-  <body>
-    <%= yield %>
-    <%# javascript_pack_tag 'hello_react'%>
-    <%# javascript_pack_tag 'index', {prerender: true}%>
+      <footer class="footer">
+      <div class="content has-text-centered">
+        <span class="icon is-large">
+          <i class="fab fa-instagram has-text-black-bis"></i> &nbsp;&nbsp;&nbsp;
+          <i class="fab fa-facebook has-text-info"></i> &nbsp;&nbsp;&nbsp;
+          <i class="fab fa-snapchat-square has-text-warning"></i> &nbsp;&nbsp;&nbsp;
+          <i class="fab fa-youtube has-text-danger"></i> &nbsp;&nbsp;&nbsp;
+        </span>
+        <p>No Rights Reserve | Red River College | 160 Princess St., Winnipeg, MB | Contact Us: (204) 891-0523 </p>
+      </div>
+      </footer>
+
     <%= react_component("Index")%>
   <br />
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js%22%3E"> </script>
