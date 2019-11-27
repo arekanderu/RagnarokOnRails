@@ -33,6 +33,7 @@ class ProductsController < ApplicationController
       @products = Product.where('category_id=? and lower(name) LIKE ? ', @category.to_s, "%#{@query}%")
 
     elsif params[:query].present?
+      flash[:notice] = 'No search result.'
       @query = params[:query]
       @products = Product.where('name LIKE ?', "%#{@query}%")
 
@@ -49,25 +50,22 @@ class ProductsController < ApplicationController
     id = params[:id].to_i
     @query = params[:query].to_i
 
-    product_id = session[:cart] << id unless session[:cart].include?(id)
-    session[:testing] << { id => @query } unless session[:testing].include?(id)
-    @testing = session[:testing]
-    @testing2 = session[:cart]
+    session[:cart] << { id: id, quantity: @query } unless session[:cart].include?(id)
+
     redirect_to root_path
   end
 
   def load_cart
-    @cart = Product.find(session[:cart])
-    # @shopping_cart = Product.where(id: session[:testing][id])
+    @cart = Product.find(session[:cart].map { |hash| hash['id'] } )
+    @quantity = session[:cart].map { |hash| hash['quantity'] }
   end
 
   def remove_from_cart
     id = params[:id].to_i
-    quantity = params[:quantity].to_i
+    @query = params[:query].to_i
 
-    session[:cart].delete(id)
-    session[:quantity].delete(quantity)
-    redirect_to root_path
+    session[:cart].delete_if { |hash| hash['id'] == id }
+    #redirect_to root_path
   end
 
   def edit_the_cart
@@ -82,7 +80,5 @@ class ProductsController < ApplicationController
 
   def initialize_session
     session[:cart] ||= []
-    session[:quantity] ||= []
-    session[:testing] ||= []
   end
 end

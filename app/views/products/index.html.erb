@@ -1,10 +1,18 @@
-  <ul>
+<div class="column ">
+  <div class="card">
   <% @paginate_results.each do |product| %>
-    <li>
-      <%=image_tag(url_for(product.image), alt:"product_image")%>
-      <%=link_to(product.name, product)%>
-      CAN $<%= number_with_precision(product.price, :precision => 2, :delimiter => ',') %>
-    </li>
+    <div class="card-image">
+      <figure class="image is-48x48">
+        <%=image_tag(url_for(product.thumbnail), alt:"product_image")%>
+      </figure>
+    </div>
+    <div class="card-content">
+    <p class="title is-4"><%=link_to(product.name, product)%></p>
+    <h2 class="subtitle is-6">CAN $<%= number_with_precision(product.price, :precision => 2, :delimiter => ',') %></h2>
+    </div>
   <% end %>
-  </ul>
+  </div>
+</div>
+
 <%= will_paginate @paginate_results %>
+

@@ -17,7 +17,7 @@
 }
 
 
-.search_bar input[type=submit]{
+.search_bar button{
   position: relative;
   float: right;
   margin-top: -41px;
@@ -46,6 +46,24 @@ a:active {
   color: rgb(177, 70, 70);
 }
 
-.shopping_cart details{
-  float: left;
+.shopping_cart{
+  margin-right: 10px;
+}
+
+.filter{
+  display:inline;
+}
+
+.filter h5{
+  margin-left: 25px;
+  display: inline;
+}
+
+.filter input[type=radio]{
+  margin-left: 25px;
+}
+
+.filter button{
+  height: 25px;
+  margin-left: 10px;
 }

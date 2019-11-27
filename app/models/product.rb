@@ -9,4 +9,8 @@ class Product < ApplicationRecord
   validates :number_in_stock, :attack, :magic_attack, numericality: { only_integer: true }
 
   has_one_attached :image
+
+  def thumbnail
+      image.variant(resize:'90x90').processed
+  end
 end

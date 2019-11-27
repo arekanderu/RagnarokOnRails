@@ -1,4 +1,3 @@
-<br />
 <%if @products.present? %>
   <p>You search for '<%= @query %>' returned <%= pluralize(@products.size, 'result') %>.</p>
     <% @products.each do |product| %>

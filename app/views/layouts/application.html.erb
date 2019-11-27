@@ -50,18 +50,53 @@
       </div>
     </div>
 
+
            <div class="navbar-end">
       <div class="navbar-item">
-        <div class="buttons">
+      <% url = request.path_info %>
+      <% if url.include?('about_us') || url.include?('faq') || url.include?('users') %>
+
+      <%else %>
+      <div class="shopping_cart">
+        <div class="dropdown is-hoverable">
+          <div class="dropdown-trigger">
+            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+              <span class="icon has-text-info"><i class="fas fa-shopping-cart"></i>&nbsp;<%=@cart.count%> </span>
+              <span class="icon is-small">
+                <i class="fas fa-angle-down" aria-hidden="true"></i>
+              </span>
+            </button>
+          </div>
+          <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+            <div class="dropdown-content">
+              <div class="dropdown-item">
+                <p>There are <%= pluralize(@cart.count, 'item') %> in the cart.</p>
+                  <% count = 0 %>
+                  <% @cart.each do |product| %>
+
+                    <li>
+                      <%= product.name %>
+                      <%=image_tag(url_for(product.image), alt:"product_image") %>
+                      Quantity: <%= @quantity[count] %>
+                      <i class="fas fa-minus is-small"></i>
+                      <i class="fas fa-plus"></i>
+                    </li>
+                    <% count += 1%>
+                  <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
+
+
             <% if current_user %>
-            <a class="button is-primary is-light">
-              <%=link_to 'Sign out', destroy_user_session_path, method: :delete %>
-            </a>
+                <%=link_to 'Sign out', destroy_user_session_path, method: :delete, class: "button is-link is-light" %>
 
             <% else %>
 
-
-          <%=link_to 'Sign up', new_user_registration_path, class:"button is-primary is-light" %>
+          <%=link_to 'Sign up', new_user_registration_path, class:"button is-primary is-light" %>&nbsp;
           <%=link_to 'Sign in', new_user_session_path, class: "button is-link is-light" %>
           <% end %>
               </div>
@@ -69,26 +104,6 @@
           </div>
         </div>
       </nav>
-
-      <% url = request.path_info %>
-      <% if url.include?('about_us') || url.include?('faq') || url.include?('users') %>
-
-      <%else %>
-        <details >
-          <summary>Shopping Cart: <%=@cart.count%></summary>
-            <ul>
-              <%=debug session[:testing][0]  %>
-              <% count = 0 %>
-              <% @cart.each do |product| %>
-                <li>
-                  <%= product.id %>
-                </li>
-              <% count += 1%>
-              <% end %>
-            </ul>
-      <% end %>
-        </details>
-
         <div class ="search_bar">
           <%= form_tag(search_results_products_path, method: "get", local: true, class:"") do %>
             <div class="field">
@@ -98,33 +113,37 @@
             </div>
           <%= collection_select :product, :category_id, Category.all, :id, :name, prompt: true%>
           <div class="control">
-            <%= submit_tag("Search",  class: "button is-danger") %>
+            <%= button_tag(type: "submit",  class: "button is-danger") do %>
+              <i class="fas fa-search"></i>
+            <% end %>
           </div>
          <% end %>
         </div>
 
       <br />
-      <br />
+
+      <div class="filter">
+        <%= form_tag products_path, :method => 'get' do%>
+          <div class="control">
+            <%= radio_button_tag :option, "New"%>
+            <%= label_tag 'Just arrived', nil, class: "radio"%>
+
+            <%= radio_button_tag :option, "Updated" %>
+            <%= label_tag 'Recently Changed', nil, class: "radio"%>
+            <%= button_tag(type: "submt", class:"button is-danger is-light") do %>
+              <i class="fas fa-filter"></i>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+<hr />
+
     </header>
   </head>
 
-  <br />
   <%= render 'layouts/alerts' %>
+
   <body>
-
-  <h4 class="nav flex-column">What's hot?</h4>
-    <div class="custom-control custom-radio custom-control-inline">
-      <%= form_tag products_path, :method => 'get' do%>
-      <%= radio_button_tag :option, "New"%>
-      <%= label_tag 'New'%>
-      <br />
-      <%= radio_button_tag :option, "Updated" %>
-      <%= label_tag 'Updated'%>
-      <br />
-      <%= submit_tag "Filter", class:"btn btn-primary"%>
-    <% end %>
-    </div>
-
     <%= yield %>
     <%# javascript_pack_tag 'hello_react'%>
     <%# javascript_pack_tag 'index', {prerender: true}%>
