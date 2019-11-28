@@ -1,12 +1,37 @@
-Checkout
+<h1>Checkout</h1>
 
-  <% @orders.each do |order| %>
-  <ul>
-    <li><%=link_to(order.order_number, order)%></li>
-    <li><%=order.quantity %></li>
-    <li><%=order.sub_total %></li>
-    <li><%=order.tax_rate %></li>
-    <li><%=order.total_price %></li>
-  </ul>
-<% end %>
+  <% count = 0 %>
+  <% @cart.each do |product| %>
+  <div class="columns">
+    <div class="column">
+      <p><%= product.name %></p>
+    </div>
 
+    <div class="column">
+      <p><%= product.price %></p>
+    </div>
+
+    <div class="column">
+      <p><%= @quantity[count] %></p>
+    </div>
+
+    <div class="column">
+    <%= form_tag(remove_from_cart_path(product.id), method: "delete", local: true) do %>
+        <%= button_tag(type: "submit", class:"button is-danger") do %>
+          <i class="fas fa-trash-alt"></i>
+        <% end %>
+    <% end %>
+
+     <%= form_tag(edit_cart_path(product.id, :query), method: "post", local: true) do %>
+       <%= label_tag(:query, "") %>
+         <%= number_field_tag(:query, @quantity[count],  min: 1) %>
+            <%= button_tag(type: "submit", class:"button is-danger") do %>
+               <i class="fas fa-pen"></i>
+            <% end %>
+      <% end %>
+    </div>
+    <% count += 1 %>
+  </div>
+    <% end %>
+
+<%= react_component("Index")%>
