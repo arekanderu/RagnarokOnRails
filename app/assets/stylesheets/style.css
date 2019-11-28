@@ -96,3 +96,8 @@ a:active {
 .search_images{
   padding: 10px;
 }
+
+.button_1, .button_2 {
+  display: inline-block;
+  margin: 0 auto;
+}

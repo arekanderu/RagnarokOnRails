@@ -8,8 +8,8 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag "style" %>
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
       <!-- Navigation -->
       <nav class="navbar is-danger" role="navigation" aria-label="main navigation">
           <div class="navbar-brand">
@@ -53,9 +53,10 @@
         <div class="navbar-item">
 
           <%= render 'layouts/alerts' %>
-
+            <!-- Shopping Cart -->
             <% url = request.path_info %>
-            <% if url.include?('about_us') || url.include?('faq') || url.include?('users') || url.include?('categories')%>
+            <% if url.include?('about_us') || url.include?('faq') || url.include?('users') ||
+            url.include?('categories') || url.include?('order')%>
 
             <%else %>
             <div class="shopping_cart">
@@ -74,26 +75,50 @@
                       <p>There are <%= pluralize(@cart.count, 'item') %> in the cart.</p>
                         <% count = 0 %>
                         <% @cart.each do |product| %>
+                          <div class="card">
+                              <%=image_tag(url_for(product.image), alt:"product_image") %>
 
-                            <%=image_tag(url_for(product.image), alt:"product_image") %>
-                            <%= product.name %>
-                            <%= link_to '-remove', remove_from_cart_path(product.id), method: :delete %>
-                            <%= form_tag(edit_cart_path(product.id, :query), method: "post", local: true) do %>
-                            <%= label_tag(:query, "Quantity:") %>
-                            <div class="quantity">
-                              <%= number_field_tag(:query, @quantity[count]) %>
+                              <div class="card-content">
+                                <p class="subtitle is-6">
+                                  <%= product.name %>
+                                </p>
+                                  <%= form_tag(edit_cart_path(product.id, :query), method: "post", local: true) do %>
+                                  <%= label_tag(:query, "") %>
+                                  <div class="quantity">
+                                    <%= number_field_tag(:query, @quantity[count],  min: 1) %>
+                                  </div>
+                                  <br />
+
+                                  <div class="field is-grouped">
+                                    <div class="control">
+                                      <%= button_tag(type: "submit", class:"button is-danger") do %>
+                                        <i class="fas fa-pen"></i>
+                                      <% end %>
+                                    </div>
+                                  <% end %>
+
+                                      <%= form_tag(remove_from_cart_path(product.id), method: "delete", local: true) do %>
+                                        <div class="control">
+                                          <%= button_tag(type: "submit", class:"button is-danger") do %>
+                                              <i class="fas fa-trash-alt"></i>
+                                          <% end %>
+                                        </div>
+                                  </div>
+                                  </div>
                             </div>
-                            <%= submit_tag("Update") %>
                             <% end %>
-
+                            <br />
                           <% count += 1%>
                         <% end %>
+                        <%= link_to("Proceed to checkout", orders_path ,class:"button is-danger") %>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             <% end %>
+
+            <!-- Search -->
             <% if current_user %>
                 <%=link_to 'Sign out', destroy_user_session_path, method: :delete, class: "button is-link is-light" %>
             <% else %>
@@ -106,6 +131,11 @@
           </div>
         </div>
       </nav>
+        <% url = request.path_info %>
+            <% if url.include?('about_us') || url.include?('faq') || url.include?('users') ||
+            url.include?('categories') || url.include?('order')%>
+
+            <%else %>
         <div class ="search_bar">
           <%= form_tag(search_results_products_path, method: "get", local: true, class:"") do %>
             <div class="field">
@@ -121,9 +151,16 @@
           </div>
          <% end %>
         </div>
+        <%end%>
 
       <br />
 
+      <!-- Filter -->
+      <% url = request.path_info %>
+            <% if url.include?('about_us') || url.include?('faq') || url.include?('users') ||
+            url.include?('categories') || url.include?('order')%>
+
+            <%else %>
       <div class="filter">
         <%= form_tag products_path, :method => 'get' do%>
           <div class="control">
@@ -138,6 +175,7 @@
           </div>
         <% end %>
       </div>
+      <% end %>
 <hr />
 
     </header>
@@ -146,6 +184,7 @@
     <body>
       <%= yield %>
 
+      <!-- Footer -->
       <footer class="footer">
       <div class="content has-text-centered">
         <span class="icon is-large">
@@ -154,7 +193,7 @@
           <i class="fab fa-snapchat-square has-text-warning"></i> &nbsp;&nbsp;&nbsp;
           <i class="fab fa-youtube has-text-danger"></i> &nbsp;&nbsp;&nbsp;
         </span>
-        <p>No Rights Reserve | Red River College | 160 Princess St., Winnipeg, MB | Contact Us: (204) 891-0523 </p>
+        <p>No Rights Reserve | Red River College | 160 Princess St., Winnipeg, MB | Contact me: (204) 891-0523 </p>
       </div>
       </footer>
 

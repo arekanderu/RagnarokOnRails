@@ -70,8 +70,9 @@ class ProductsController < ApplicationController
     id = params[:id].to_i
     @query = params[:query].to_i
 
-    # session[:cart].update(session[:cart].map {|hash| hash['id'] => id, hash["quantity"] => @query })
-
+    session[:cart].delete_if { |hash| hash['id'] == id } if session[:cart].map { |hash| hash['quantity'] == 0 }
+    session[:cart].delete_if { |hash| hash['id'] == id }
+    session[:cart] << { id: id, quantity: @query } unless session[:cart].include?(id)
     redirect_to root_path
   end
 
